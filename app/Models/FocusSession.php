@@ -66,7 +66,9 @@ class FocusSession extends Model
 
     public function tick()
     {
-        if ($this->current_status !== static::STATUS_TICKING) $this->current_status = static::STATUS_TICKING;
+        if ($this->current_status !== static::STATUS_TICKING) {
+            $this->current_status = static::STATUS_TICKING;
+        }
         $this->progressed_at = now();
         $this->save();
         return $this;

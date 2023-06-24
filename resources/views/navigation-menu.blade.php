@@ -155,6 +155,16 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('timer') }}" :active="request()->routeIs('timer')">
+                {{ __('Timer') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('stats') }}" :active="request()->routeIs('stats')">
+                {{ __('Stats') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
+                {{ __('About') }}
+            </x-responsive-nav-link>
+          
         </div>
 
         <!-- Responsive Settings Options -->
@@ -231,7 +241,7 @@
     </div>
 </nav>
 {{-- this code is to add a nav bar at the bottom on mobile phones. --}}
-<div class="sm:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
+{{-- <div class="sm:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
     <div class="flex justify-between h-12">
         <a href="{{ route('dashboard') }}" class="flex flex-col items-center justify-center w-full text-lime-400">
             <span class="text-xs">Dashboard</span>
@@ -246,4 +256,4 @@
             <span class="text-xs">About</span>
         </a>
     </div>
-</div>
+</div> --}}

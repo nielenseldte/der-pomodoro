@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Settings;
+use App\Models\FocusSession;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
@@ -64,6 +65,20 @@ class User extends Authenticatable
 
     public function settings() {
         return $this->hasOne(Settings::class);
+    }
+
+    public function focusSessions() {
+        return $this->hasMany(FocusSession::class);
+    }
+
+    /**
+     * Finds current session for user
+     *
+     * @return FocusSession | null
+     */
+    public function getCurrentFocusSession() {
+        if  (!$this->focusSessions) return null;
+        return $this->focusSessions->sortByDesc('id')->first();
     }
 
 }

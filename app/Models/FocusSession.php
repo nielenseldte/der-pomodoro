@@ -23,6 +23,7 @@ class FocusSession extends Model
         'progressed_at' => 'datetime'
     ];
 
+
     /**
      * Starts a new session and returns it
      *
@@ -57,7 +58,7 @@ class FocusSession extends Model
 
     protected function end() {
         if ($this->current_status !== static::STATUS_ENDED) {
-            $this->progressed_at = now();
+            $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;
             $this->save();
         }
@@ -79,7 +80,10 @@ class FocusSession extends Model
 
     public function resume()
     {
-        if ($this->current_status == static::STATUS_PAUSED) {
+
+        if ($this->current_status === static::STATUS_PAUSED) {
+            $pausedDuration = now()->diffInSeconds($this->progressed_at);
+            $this->started_at = $this->started_at->addSeconds($pausedDuration);
             $this->progressed_at = now();
             $this->current_status = static::STATUS_STARTED;
             $this->save();
@@ -102,12 +106,23 @@ class FocusSession extends Model
 
     public function tick()
     {
+        $user = Auth::user();
         if (in_array($this->current_status, [static::STATUS_PAUSED, static::STATUS_ENDED, static::STATUS_CANCELED])) return $this;
 
         if ($this->current_status !== static::STATUS_TICKING) {
             $this->current_status = static::STATUS_TICKING;
         }
+
         $this->progressed_at = now();
+        $sessionLengthInSeconds = $user->settings->session_length * 60;
+
+        // Calculate the elapsed time in seconds
+        $runtimeSeconds = $this->started_at->diffInSeconds($this->progressed_at);
+
+        if ($runtimeSeconds >= $sessionLengthInSeconds) {
+            $this->end();
+            # code...
+        }
         $this->save();
         return $this;
     }
@@ -126,7 +141,7 @@ class FocusSession extends Model
         if (!$user || !$user->settings) {
             return null;
         }
-
+        //$pauseLength = now()->diffInSeconds($this->progressed_at);
         // Calculate the session length in seconds
         $sessionLengthInSeconds = $user->settings->session_length * 60;
 
@@ -135,6 +150,7 @@ class FocusSession extends Model
 
         // Calculate the remaining time in seconds
         $remainingTimeSeconds = $sessionLengthInSeconds - $runtimeSeconds;
+
 
         // Create a new Carbon instance representing the current time
         $currentTime = Carbon::now()->setTime(0, 0, 0);
@@ -147,6 +163,7 @@ class FocusSession extends Model
 
         return $countdown;
     }
+
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\FocusSession;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
@@ -24,8 +25,13 @@ class TimerComponent extends Component
         $currentFocusSession = $user->getCurrentFocusSession();
         if (!$currentFocusSession) {
             $this->ticker = $user->settings->session_length . ':00';
+            return;
         }
+        if ($currentFocusSession->current_status == FocusSession::STATUS_ENDED) {
 
+            $this->ticker = 'ended';
+            return;
+        }
         $this->ticker = $currentFocusSession->tick()->countdown();
 
     }

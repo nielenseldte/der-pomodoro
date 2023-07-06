@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StopTimerButton extends Component
 {
-    public FocusSession $focus_session;
-    public $button_text = 'Stop';
+    public ?FocusSession $focus_session;
+    public $button_text = 'Start';
 
     private function setCurrentSession() {
         $user = Auth::user();
@@ -21,7 +21,9 @@ class StopTimerButton extends Component
     public function stopStart() {
 
         $this->setCurrentSession();
-        if (!$this->focus_session) return;
+        if (!$this->focus_session) {
+            $this->focus_session = FocusSession::start();
+        }
 
         Log::debug("Im toggling " . $this->button_text);
         if ($this->button_text == __('Stop')) {

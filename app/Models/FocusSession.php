@@ -20,7 +20,8 @@ class FocusSession extends Model
 
     public $casts = [
         'started_at' => 'datetime',
-        'progressed_at' => 'datetime'
+        'progressed_at' => 'datetime',
+        'completed_at' => 'datetime'
     ];
 
 

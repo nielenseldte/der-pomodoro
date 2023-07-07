@@ -57,7 +57,7 @@ class FocusSession extends Model
 
     }
 
-    protected function end() {
+    public function end() {
         if ($this->current_status !== static::STATUS_ENDED) {
             $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;

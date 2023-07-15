@@ -71,6 +71,10 @@ class User extends Authenticatable
         return $this->hasMany(FocusSession::class);
     }
 
+    public function breaks() {
+        return $this->hasMany(UserBreak::class);
+    }
+
     /**
      * Finds current session for user
      *
@@ -79,6 +83,11 @@ class User extends Authenticatable
     public function getCurrentFocusSession() {
         if  (!$this->focusSessions) return null;
         return $this->focusSessions->sortByDesc('id')->first();
+    }
+
+    public function getCurrentBreak() {
+        if (!$this->breaks) return null;
+        return $this->breaks->sortByDesc('id')->first();
     }
 
 }

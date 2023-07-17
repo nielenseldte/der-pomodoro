@@ -115,6 +115,10 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+                            <x-dropdown-link href="{{ route('settings') }}">
+                                {{ __('My Settings') }}
+                            </x-dropdown-link>
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                     {{ __('API Tokens') }}
@@ -164,7 +168,7 @@
             <x-responsive-nav-link href="{{ route('about') }}" :active="request()->routeIs('about')">
                 {{ __('About') }}
             </x-responsive-nav-link>
-          
+
         </div>
 
         <!-- Responsive Settings Options -->
@@ -240,20 +244,4 @@
         </div>
     </div>
 </nav>
-{{-- this code is to add a nav bar at the bottom on mobile phones. --}}
-{{-- <div class="sm:hidden fixed bottom-0 inset-x-0 bg-white dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700">
-    <div class="flex justify-between h-12">
-        <a href="{{ route('dashboard') }}" class="flex flex-col items-center justify-center w-full text-lime-400">
-            <span class="text-xs">Dashboard</span>
-        </a>
-        <a href="{{ route('timer') }}" class="flex flex-col items-center justify-center w-full text-lime-400">
-            <span class="text-xs">Timer</span>
-        </a>
-        <a href="{{ route('stats') }}" class="flex flex-col items-center justify-center w-full text-lime-400">
-            <span class="text-xs">Stats</span>
-        </a>
-        <a href="{{ route('about') }}" class="flex flex-col items-center justify-center w-full text-lime-400">
-            <span class="text-xs">About</span>
-        </a>
-    </div>
-</div> --}}
+

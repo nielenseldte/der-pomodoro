@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\pomodoroSettingsUpdate;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,9 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // we call the index method of the HomeController
 });
+
+Route::get('/settings', [pomodoroSettingsUpdate::class, 'index'])->name('settings');
+
 
 
 Route::middleware([

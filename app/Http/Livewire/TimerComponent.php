@@ -13,9 +13,6 @@ class TimerComponent extends Component
     public $ticker = '25:00';
 
 
-    public function updateSettings() {
-        Log::debug('Boo');
-    }
 
     private function tick() {
 

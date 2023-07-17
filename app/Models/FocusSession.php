@@ -52,6 +52,7 @@ class FocusSession extends Model
         $newFocusSession->next_break_length = $user->settings->short_break_length;
         $newFocusSession->current_status = static::STATUS_STARTED;
         $newFocusSession->started_at = now();
+        $newFocusSession->session_length = $user->settings->session_length;
         $newFocusSession->save();
         return $newFocusSession;
 
@@ -95,7 +96,7 @@ class FocusSession extends Model
 
     public function cancel()
     {
-        if ($this->current_status !== static::STATUS_CANCELED) {
+        if ($this->current_status !== static::STATUS_CANCELED and $this->current_status !== static::STATUS_ENDED ) {
             $this->progressed_at = now();
             $this->current_status = static::STATUS_CANCELED;
             $this->save();

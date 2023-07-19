@@ -24,6 +24,10 @@ class FocusSession extends Model
         'completed_at' => 'datetime'
     ];
 
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
 
     /**
      * Starts a new session and returns it
@@ -45,7 +49,8 @@ class FocusSession extends Model
         }
 
         //TODO: Deal with complexity of calling start when another session is underway....
-
+        $user->endBreak();
+        
         $newFocusSession = new FocusSession();
         $newFocusSession->user_id = $user->id;
         $newFocusSession->progressed_at = now();
@@ -63,6 +68,7 @@ class FocusSession extends Model
             $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;
             $this->save();
+            $this->user->startBreak();
         }
         return $this;
 

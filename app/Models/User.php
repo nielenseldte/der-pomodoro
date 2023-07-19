@@ -63,15 +63,19 @@ class User extends Authenticatable
 
 
 
-    public function settings() {
+
+    public function settings()
+    {
         return $this->hasOne(Settings::class);
     }
 
-    public function focusSessions() {
+    public function focusSessions()
+    {
         return $this->hasMany(FocusSession::class);
     }
 
-    public function breaks() {
+    public function breaks()
+    {
         return $this->hasMany(UserBreak::class);
     }
 
@@ -80,14 +84,48 @@ class User extends Authenticatable
      *
      * @return FocusSession | null
      */
-    public function getCurrentFocusSession() {
-        if  (!$this->focusSessions) return null;
+    public function getCurrentFocusSession()
+    {
+        if (!$this->focusSessions) return null;
         return $this->focusSessions->sortByDesc('id')->first();
     }
 
-    public function getCurrentBreak() {
+    public function getCurrentBreak()
+    {
         if (!$this->breaks) return null;
         return $this->breaks->sortByDesc('id')->first();
     }
 
+    public function isOnBreak()
+    {
+        return session()->get('break', false);
+    }
+
+    public function startBreak()
+    {
+        session()->put('break', true);
+        UserBreak::start($this);
+    }
+
+    public function endBreak()
+    {
+        session()->put('break', false);
+    }
+
+    public function getSettings()
+    {
+        $focusLength = $this->settings->session_length;
+        $shortBreakLength = $this->settings->short_break_length;
+        $longBreakLength = $this->settings->long_break_length;
+        $longBreakInterval = $this->settings->long_break_interval;
+        $dailyGoal = $this->settings->daily_goal;
+
+        return [
+            'focusLength' => $focusLength,
+            'shortBreakLength' => $shortBreakLength,
+            'longBreakLength' => $longBreakLength,
+            'longBreakInterval' => $longBreakInterval,
+            'dailyGoal' => $dailyGoal,
+        ];
+    }
 }

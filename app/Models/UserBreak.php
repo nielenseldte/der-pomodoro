@@ -22,6 +22,11 @@ class UserBreak extends Model
         'progressed_at' => 'datetime',
         'completed_at' => 'datetime'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     /**
      * Starts a new session and returns it
      *
@@ -84,6 +89,7 @@ class UserBreak extends Model
             $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;
             $this->save();
+            $this->user->endBreak();
         }
         return $this;
     }

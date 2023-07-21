@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StatsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\pomodoroSettingsUpdate;
+use App\Http\Livewire\SettingsComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use App\Http\Controllers\pomodoroSettingsUpdate;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->name('welcome');
 });
 
 
@@ -29,7 +30,15 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard'); // we call the index method of the HomeController
 });
 
-Route::get('/settings', [pomodoroSettingsUpdate::class, 'index'])->name('settings');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function(){
+    Route::get('/settings', [pomodoroSettingsUpdate::class, 'index'])->name('settings');
+    Route::post('/settings', [SettingsComponent::class, 'save'])->name('update.settings');
+});
+
 
 
 

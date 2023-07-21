@@ -112,20 +112,4 @@ class User extends Authenticatable
         session()->put('break', false);
     }
 
-    public function getSettings()
-    {
-        $focusLength = $this->settings->session_length;
-        $shortBreakLength = $this->settings->short_break_length;
-        $longBreakLength = $this->settings->long_break_length;
-        $longBreakInterval = $this->settings->long_break_interval;
-        $dailyGoal = $this->settings->daily_goal;
-
-        return [
-            'focusLength' => $focusLength,
-            'shortBreakLength' => $shortBreakLength,
-            'longBreakLength' => $longBreakLength,
-            'longBreakInterval' => $longBreakInterval,
-            'dailyGoal' => $dailyGoal,
-        ];
-    }
 }

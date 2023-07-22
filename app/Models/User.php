@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Settings;
 use App\Models\FocusSession;
+use Carbon\Carbon;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
 use Illuminate\Notifications\Notifiable;
@@ -110,6 +111,14 @@ class User extends Authenticatable
     public function endBreak()
     {
         session()->put('break', false);
+    }
+
+    public function dailyProgress() {
+
+        $dailyGoal = $this->settings->daily_goal;
+        $hoursCompleted = ($this->focusSessions()->whereDate('completed_at',Carbon::today())->sum('session_length'))/60;
+        $progress = ($hoursCompleted/$dailyGoal) * 100;
+        return $progress;
     }
 
 }

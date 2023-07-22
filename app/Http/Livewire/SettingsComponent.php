@@ -65,6 +65,7 @@ class SettingsComponent extends Component
     }
 
 
+
     public function render()
     {
         return view('livewire.settings-component');

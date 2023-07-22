@@ -181,4 +181,10 @@ class UserBreak extends Model
 
         return $countdown;
     }
+
+    public function isLong() {
+
+        return $this->is_long_break;
+
+    }
 }

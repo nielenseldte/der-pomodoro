@@ -13,9 +13,10 @@
         </div>
         <div class="py-8 flex flex-col justify-center items-center">
           @livewire('timer-component') <br>
-          <button type="button" class="btn dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">
+          <livewire:stop-timer-button/>
+        {{--   <button type="button" class="btn dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">
             <a href="/timer">{{ __('START') }}</a>
-          </button>
+          </button> --}}
         </div>
       </div>
     </div>
@@ -32,12 +33,7 @@
         <div class="text-center">
           <h1 class="text-2xl underline italic">{{ __('Goal Progress') }}</h1>
         </div>
-        <div class="py-8">
-          <h1 class="font-bold">Goal: {6 hours}</h1>
-          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-            <div class="bg-lime-600 h-2.5 rounded-full" style="width: 45%; margin-left: 0;"></div>
-          </div>
-        </div>
+        <x-progress/>
       </div>
     </div>
     <div class="w-full md:w-1/2 lg:w-1/4 p-4">

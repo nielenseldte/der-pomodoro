@@ -90,6 +90,8 @@ class UserBreak extends Model
             $this->current_status = static::STATUS_ENDED;
             $this->save();
             $this->user->endBreak();
+            //When break ends lets start the next focus session
+            FocusSession::start($this->user)->pause();
         }
         return $this;
     }
@@ -111,7 +113,7 @@ class UserBreak extends Model
             $pausedDuration = now()->diffInSeconds($this->progressed_at);
             $this->started_at = $this->started_at->addSeconds($pausedDuration);
             $this->progressed_at = now();
-            $this->current_status = static::STATUS_STARTED;
+            $this->current_status = static::STATUS_TICKING;
             $this->save();
         }
         return $this;
@@ -187,4 +189,31 @@ class UserBreak extends Model
         return $this->is_long_break;
 
     }
+
+
+    public function toggle()
+    {
+
+        if ($this->current_status == UserBreak::STATUS_TICKING) {
+            $this->pause();
+            return $this;
+        }
+
+        if ($this->current_status == UserBreak::STATUS_PAUSED) {
+            $this->resume();
+            return $this;
+        }
+    }
+
+    public function buttonLabel()
+    {
+        if ($this->current_status == UserBreak::STATUS_TICKING) {
+            return __('Stop');
+        }
+        if ($this->current_status == UserBreak::STATUS_PAUSED) {
+            return __('Start');
+        }
+        return __('Fubar') . $this->current_status . ' :' .$this->id . '!';
+    }
+
 }

@@ -44,6 +44,8 @@ class TimerComponent extends Component
 
             return;
         }
+
+        
         $this->ticker = $currentFocusSession->tick()->countdown();
 
 

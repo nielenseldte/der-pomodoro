@@ -106,11 +106,13 @@ class User extends Authenticatable
     {
         session()->put('break', true);
         UserBreak::start($this);
+        $this->load('breaks');
     }
 
     public function endBreak()
     {
         session()->put('break', false);
+
     }
 
     public function dailyProgress() {

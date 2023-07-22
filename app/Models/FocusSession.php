@@ -49,13 +49,13 @@ class FocusSession extends Model
         }
 
         //TODO: Deal with complexity of calling start when another session is underway....
-        $user->endBreak();
-        
+        //$user->endBreak();
+
         $newFocusSession = new FocusSession();
         $newFocusSession->user_id = $user->id;
         $newFocusSession->progressed_at = now();
         $newFocusSession->next_break_length = $user->settings->short_break_length;
-        $newFocusSession->current_status = static::STATUS_STARTED;
+        $newFocusSession->current_status = static::STATUS_TICKING;
         $newFocusSession->started_at = now();
         $newFocusSession->session_length = $user->settings->session_length;
         $newFocusSession->save();
@@ -93,7 +93,7 @@ class FocusSession extends Model
             $pausedDuration = now()->diffInSeconds($this->progressed_at);
             $this->started_at = $this->started_at->addSeconds($pausedDuration);
             $this->progressed_at = now();
-            $this->current_status = static::STATUS_STARTED;
+            $this->current_status = static::STATUS_TICKING;
             $this->save();
         }
         return $this;
@@ -174,5 +174,29 @@ class FocusSession extends Model
 
 
 
+    public function toggle() {
+
+        if ($this->current_status == FocusSession::STATUS_TICKING) {
+            $this->pause();
+            return $this;
+        }
+
+        if ($this->current_status == FocusSession::STATUS_PAUSED) {
+            $this->resume();
+            return $this;
+        }
+
+    }
+
+    public function buttonLabel() {
+        if ($this->current_status == FocusSession::STATUS_TICKING) {
+            return __('Stop');
+        }
+        if ($this->current_status == FocusSession::STATUS_PAUSED)   {
+            return __('Start');
+        }
+        return __('Fubar') . $this->current_status;
+
+    }
 
 }

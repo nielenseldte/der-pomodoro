@@ -28,17 +28,22 @@ class StopTimerButton extends Component
 
     public function stopStart() {
 
+        Log::debug('Pudhrf@');
 
         $this->setCurrentSession();
         if ($this->user->isOnBreak()) return $this->stopStartBreak();
 
 
         if (!$this->focus_session) {
+            Log::debug('Make new');
             $this->focus_session = FocusSession::start();
             $this->button_text = $this->focus_session->buttonLabel();
             return;
         }
+        Log::debug('Toggling now');
         $this->focus_session->toggle();
+        Log::debug('Setting text');
+
         $this->button_text = $this->focus_session->buttonLabel();
 
 
@@ -48,6 +53,7 @@ class StopTimerButton extends Component
     public function stopStartBreak()
     {
 
+        Log::debug('stop start break');
         if (!$this->user_break) return;
 
         $this->user_break->toggle();
@@ -59,11 +65,16 @@ class StopTimerButton extends Component
 
     public function cancel()
     {
-        Log::debug("Im want to cancel");
-        $this->setCurrentSession();
-        if (!$this->focus_session) return;
 
-        $this->focus_session->cancel();
+        $this->setCurrentSession();
+        if ($this->focus_session) {
+            $this->focus_session->cancel();
+            $this->focus_session->buttonLabel();
+            return;
+
+        }
+
+
 
 
     }

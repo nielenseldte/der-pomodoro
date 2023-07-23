@@ -213,7 +213,8 @@ class UserBreak extends Model
         if ($this->current_status == UserBreak::STATUS_PAUSED) {
             return __('Start');
         }
-        return __('Fubar') . $this->current_status . ' :' .$this->id . '!';
     }
-
 }
+
+
+

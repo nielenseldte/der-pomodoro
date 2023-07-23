@@ -106,6 +106,8 @@ class FocusSession extends Model
             $this->progressed_at = now();
             $this->current_status = static::STATUS_CANCELED;
             $this->save();
+            $user = Auth::user();
+            $this->start($user)->pause();
         }
 
         return $this;
@@ -195,7 +197,9 @@ class FocusSession extends Model
         if ($this->current_status == FocusSession::STATUS_PAUSED)   {
             return __('Start');
         }
-        return __('Fubar') . $this->current_status;
+        if ($this->current_status == FocusSession::STATUS_CANCELED) {
+            return __('Start');
+        }
 
     }
 

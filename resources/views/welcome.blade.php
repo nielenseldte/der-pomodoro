@@ -11,8 +11,8 @@
 
     <div><img src="" alt=""></div>
 
-    <body class="flex justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 dark:bg-gray-800">
-  <div class="flex items-center max-w-md p-6 rounded-md sm:p-10 dark:bg-gray-800 dark:text-lime-400 shadow-x1">
+    <body class="flex justify-center absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  bg-white dark:bg-gray-800">
+  <div class=" bg-white text-black flex items-center max-w-md p-6 rounded-md sm:p-10 dark:bg-gray-800 dark:text-lime-400 shadow-x1">
     <div class="m-8 text-center">
       <h1 class="my-3 text-4xl font-bold">Welcome to Der Pomodoro</h1>
       <p class="text-sm dark:text-gray-400">How would you like to proceed?</p>

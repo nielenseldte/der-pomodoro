@@ -5,12 +5,12 @@
         </h2>
     </x-slot>
 
-    <main class = "text-lime-400">
+    <main class = "dark:text-lime-400">
 <div class="text-center py-7">
           <h1 class="text-4xl">{{ __('About Us') }}</h1>
         </div>
 
-   <section class="text-gray-400 bg-gray-900 body-font">
+   <section class="dark:text-gray-400 dark:bg-gray-900 body-font">
 
   <div class="container px-5 py-20 mx-auto flex flex-col">
     <div class="lg:w-4/6 mx-auto">
@@ -26,9 +26,9 @@
             </svg>
           </div>
           <div class="flex flex-col items-center text-center justify-center">
-            <h2 class="font-medium title-font mt-4 text-white text-lg">Nielen Seldte</h2>
+            <h2 class="font-medium title-font mt-4 dark:text-white text-lg">Nielen Seldte</h2>
             <div class="w-12 h-1 bg-lime-400 rounded mt-2 mb-4"></div>
-            <p class="text-base text-gray-400">Computer Science Student at IUBH Germany</p>
+            <p class="text-base dark:text-gray-400">Computer Science Student at IUBH Germany</p>
           </div>
         </div>
         <div class="sm:w-2/3 sm:pl-8 sm:py-8 sm:border-l border-lime-400 sm:border-t-0 border-t mt-4 pt-4 sm:mt-0 text-center sm:text-left">

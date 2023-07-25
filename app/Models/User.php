@@ -105,7 +105,7 @@ class User extends Authenticatable
     public function startBreak()
     {
         session()->put('break', true);
-        UserBreak::start($this);
+        UserBreak::start($this)->pause();
         $this->load('breaks');
     }
 

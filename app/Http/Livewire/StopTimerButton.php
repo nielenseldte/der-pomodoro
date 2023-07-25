@@ -47,6 +47,7 @@ class StopTimerButton extends Component
         $this->button_text = $this->focus_session->buttonLabel();
 
 
+
     }
 
 
@@ -59,6 +60,7 @@ class StopTimerButton extends Component
         $this->user_break->toggle();
 
         $this->button_text = $this->user_break->buttonLabel();
+
     }
 
 
@@ -69,7 +71,7 @@ class StopTimerButton extends Component
         $this->setCurrentSession();
         if ($this->focus_session) {
             $this->focus_session->cancel();
-            $this->focus_session->buttonLabel();
+            $this->button_text = $this->focus_session->buttonLabel();
             return;
 
         }
@@ -77,6 +79,15 @@ class StopTimerButton extends Component
 
 
 
+    }
+
+    public function skipBreak() {
+        $this->setCurrentSession();
+        if ($this->user_break) {
+            $this->user_break->skip();
+            $this->button_text = $this->user_break->buttonLabel();
+            return;
+        }
     }
 
 

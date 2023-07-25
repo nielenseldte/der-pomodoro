@@ -15,6 +15,7 @@ class UserBreak extends Model
     const STATUS_TICKING = 'ticking';
     const STATUS_PAUSED = 'pasued';
     const STATUS_ENDED = 'ended';
+    const STATUS_SKIPPED = 'skipped';
 
     //Cast the date fields to datetime objects
     public $casts = [
@@ -92,6 +93,20 @@ class UserBreak extends Model
             $this->user->endBreak();
             //When break ends lets start the next focus session
             FocusSession::start($this->user)->pause();
+
+        }
+        return $this;
+    }
+
+    public function skip() {
+        if ($this->current_status !== static::STATUS_SKIPPED) {
+            $this->progressed_at = now();
+            $this->current_status = static::STATUS_SKIPPED;
+            $this->save();
+            $this->user->endBreak();
+            $user = Auth::user();
+            FocusSession::start($user)->pause();
+
         }
         return $this;
     }

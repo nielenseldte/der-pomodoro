@@ -90,7 +90,7 @@ class UserBreak extends Model
             $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;
             $this->save();
-            $this->user->endBreak();
+            //$this->user->endBreak();
             //When break ends lets start the next focus session
             FocusSession::start($this->user)->pause();
 
@@ -103,7 +103,7 @@ class UserBreak extends Model
             $this->progressed_at = now();
             $this->current_status = static::STATUS_SKIPPED;
             $this->save();
-            $this->user->endBreak();
+            //$this->user->endBreak();
             $user = Auth::user();
             FocusSession::start($user)->pause();
 
@@ -228,6 +228,8 @@ class UserBreak extends Model
         if ($this->current_status == UserBreak::STATUS_PAUSED) {
             return __('Start');
         }
+        return __('Start');
+
     }
 }
 

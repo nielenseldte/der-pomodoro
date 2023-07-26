@@ -97,22 +97,22 @@ class User extends Authenticatable
         return $this->breaks->sortByDesc('id')->first();
     }
 
+    public function hasActiveBreak() {
+        $this->load('breaks');
+        return ($this->breaks->whereIn('current_status',[UserBreak::STATUS_TICKING, UserBreak::STATUS_PAUSED])->first() !== null);
+    }
+
     public function isOnBreak()
     {
-        return session()->get('break', false);
+        return $this->hasActiveBreak();
+        //return session()->get('break', false);
     }
 
     public function startBreak()
     {
-        session()->put('break', true);
+        //session()->put('break', true);
         UserBreak::start($this)->pause();
         $this->load('breaks');
-    }
-
-    public function endBreak()
-    {
-        session()->put('break', false);
-
     }
 
     public function dailyProgress() {

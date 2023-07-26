@@ -200,6 +200,7 @@ class FocusSession extends Model
         if ($this->current_status == FocusSession::STATUS_CANCELED) {
             return __('Start');
         }
+        return __('Start');
 
     }
 

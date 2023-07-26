@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
 class StopTimerButton extends Component
 {
     public ?User $user;
-    public ?FocusSession $focus_session;
-    public ?UserBreak $user_break;
+    public $focus_session;
+    public $user_break;
     public $button_text = 'Start';
 
     private function setCurrentSession() {
@@ -93,6 +93,9 @@ class StopTimerButton extends Component
 
     public function render()
     {
+        //$this->button_text = now();
+        if ($this->user_break) $this->button_text = $this->user_break->buttonLabel();
+        if ($this->focus_session) $this->button_text = $this->focus_session->buttonLabel();
         return view('livewire.stop-timer-button');
     }
 }

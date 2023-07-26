@@ -13,7 +13,7 @@ class UserBreak extends Model
     //Define constants for the possible status values
     const STATUS_STARTED = 'started';
     const STATUS_TICKING = 'ticking';
-    const STATUS_PAUSED = 'pasued';
+    const STATUS_PAUSED = 'paused';
     const STATUS_ENDED = 'ended';
     const STATUS_SKIPPED = 'skipped';
 
@@ -222,13 +222,15 @@ class UserBreak extends Model
 
     public function buttonLabel()
     {
-        if ($this->current_status == UserBreak::STATUS_TICKING) {
+      /*   if ($this->current_status == UserBreak::STATUS_TICKING) {
             return __('Stop');
         }
         if ($this->current_status == UserBreak::STATUS_PAUSED) {
             return __('Start');
-        }
-        return __('Start');
+        } */
+
+        return 'poep';
+
 
     }
 }

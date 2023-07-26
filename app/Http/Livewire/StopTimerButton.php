@@ -16,7 +16,8 @@ class StopTimerButton extends Component
     public $user_break;
     public $button_text = 'Start';
 
-    private function setCurrentSession() {
+    private function setCurrentSession()
+    {
         $user = Auth::user();
         if (!$user) return;
         $this->user = $user;
@@ -26,41 +27,37 @@ class StopTimerButton extends Component
         }
     }
 
-    public function stopStart() {
+    public function stopStart()
+    {
 
-        Log::debug('Pudhrf@');
+
 
         $this->setCurrentSession();
         if ($this->user->isOnBreak()) return $this->stopStartBreak();
 
 
         if (!$this->focus_session) {
-            Log::debug('Make new');
+
             $this->focus_session = FocusSession::start();
             $this->button_text = $this->focus_session->buttonLabel();
             return;
         }
-        Log::debug('Toggling now');
+
         $this->focus_session->toggle();
-        Log::debug('Setting text');
 
         $this->button_text = $this->focus_session->buttonLabel();
-
-
-
     }
 
 
     public function stopStartBreak()
     {
 
-        Log::debug('stop start break');
+
         if (!$this->user_break) return;
 
         $this->user_break->toggle();
 
         $this->button_text = $this->user_break->buttonLabel();
-
     }
 
 
@@ -73,15 +70,11 @@ class StopTimerButton extends Component
             $this->focus_session->cancel();
             $this->button_text = $this->focus_session->buttonLabel();
             return;
-
         }
-
-
-
-
     }
 
-    public function skipBreak() {
+    public function skipBreak()
+    {
         $this->setCurrentSession();
         if ($this->user_break) {
             $this->user_break->skip();
@@ -94,8 +87,12 @@ class StopTimerButton extends Component
     public function render()
     {
         //$this->button_text = now();
-        if ($this->user_break) $this->button_text = $this->user_break->buttonLabel();
-        if ($this->focus_session) $this->button_text = $this->focus_session->buttonLabel();
+        if ($this->user_break) {
+            $this->button_text = $this->user_break->buttonLabel();
+        }
+        if ($this->focus_session) {
+            $this->button_text = $this->focus_session->buttonLabel();
+        }
         return view('livewire.stop-timer-button');
     }
 }

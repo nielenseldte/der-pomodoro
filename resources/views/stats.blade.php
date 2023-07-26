@@ -31,12 +31,8 @@
     </div>
     <div class="w-full md:w-1/2 lg:w-1/4 p-4">
       <div class="bg-white dark:bg-gray-800 bg-opacity-40 p-6 rounded-lg">
-        <div class="text-center">
-          <h1 class="text-2xl underline italic">{{ __('Hours by day') }}</h1>
-        </div>
-        <div class="py-8">
 
-        </div>
+        <x-daily-hours-chart/>
       </div>
     </div>
     <div class="w-full md:w-1/2 lg:w-1/4 p-4">

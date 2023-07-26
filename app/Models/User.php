@@ -123,4 +123,15 @@ class User extends Authenticatable
         return $progress;
     }
 
+    public function hoursByDay() {
+        return $this->focusSessions()
+            ->selectRaw('DAYOFWEEK(started_at)-1 AS day_of_week, SUM(session_length)/60 AS total_hours')
+            ->whereNotNull('completed_at') // Only consider completed sessions
+            ->groupBy('day_of_week')
+            ->orderBy('day_of_week')
+            ->get()
+            ->toArray();
+
+    }
+
 }

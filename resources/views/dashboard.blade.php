@@ -4,6 +4,7 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+
   <main class="dark:text-lime-400">
   <div class="flex flex-wrap -m-4 my-20 px-4 md:px-10">
     <div class="w-full md:w-1/2 lg:w-1/4 p-4">
@@ -41,9 +42,7 @@
         <div class="text-center">
           <h1 class="text-2xl underline italic">{{ __('Productivity Score') }}</h1>
         </div>
-        <div class="py-8">
-          <h1 class="font-bold">{{ __('Your score:') }}</h1>
-        </div>
+        <x-productivity-score/>
       </div>
     </div>
   </div>

@@ -24,6 +24,8 @@ class StopTimerButton extends Component
         $this->focus_session = $user->getCurrentFocusSession();
         if ($user->isOnBreak()) {
             $this->user_break = $user->getCurrentBreak();
+        } else {
+            $this->user_break = null;
         }
     }
 
@@ -83,16 +85,27 @@ class StopTimerButton extends Component
         }
     }
 
+    public function syncButtonLabel() {
+        Log::debug('Syncing button label. Current label is ' . $this->button_text);
+        $this->setCurrentSession();
+        if ($this->user_break) {
+            Log::debug('There is a break lets get label from break');
+            $this->button_text = $this->user_break->buttonLabel();
+        } else {
+            Log::debug('There is no break lets try to get focus session');
+            if ($this->focus_session) {
+                Log::debug('There is a focus session, lets get label from focus session');
+                $this->button_text = $this->focus_session->buttonLabel();
+            }
+        }
+        Log::debug('Set label to ' . $this->button_text);
+
+    }
 
     public function render()
     {
         //$this->button_text = now();
-        if ($this->user_break) {
-            $this->button_text = $this->user_break->buttonLabel();
-        }
-        if ($this->focus_session) {
-            $this->button_text = $this->focus_session->buttonLabel();
-        }
+        $this->syncButtonLabel();
         return view('livewire.stop-timer-button');
     }
 }

@@ -222,14 +222,13 @@ class UserBreak extends Model
 
     public function buttonLabel()
     {
-      /*   if ($this->current_status == UserBreak::STATUS_TICKING) {
+         if ($this->current_status == UserBreak::STATUS_TICKING) {
             return __('Stop');
         }
         if ($this->current_status == UserBreak::STATUS_PAUSED) {
             return __('Start');
-        } */
-
-        return 'poep';
+        }
+        return __('Start');
 
 
     }

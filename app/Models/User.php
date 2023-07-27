@@ -97,9 +97,10 @@ class User extends Authenticatable
         return $this->breaks->sortByDesc('id')->first();
     }
 
-    public function hasActiveBreak() {
+    public function hasActiveBreak()
+    {
         $this->load('breaks');
-        return ($this->breaks->whereIn('current_status',[UserBreak::STATUS_TICKING, UserBreak::STATUS_PAUSED])->first() !== null);
+        return ($this->breaks->whereIn('current_status', [UserBreak::STATUS_TICKING, UserBreak::STATUS_PAUSED])->first() !== null);
     }
 
     public function isOnBreak()
@@ -115,23 +116,43 @@ class User extends Authenticatable
         $this->load('breaks');
     }
 
-    public function dailyProgress() {
+    public function dailyProgress()
+    {
 
         $dailyGoal = $this->settings->daily_goal;
-        $hoursCompleted = ($this->focusSessions()->whereDate('completed_at',Carbon::today())->sum('session_length'))/60;
-        $progress = ($hoursCompleted/$dailyGoal) * 100;
+        $hoursCompleted = ($this->focusSessions()->whereDate('completed_at', Carbon::today())->sum('session_length')) / 60;
+        $progress = ($hoursCompleted / $dailyGoal) * 100;
         return $progress;
     }
 
-    public function hoursByDay() {
-        return $this->focusSessions()
-            ->selectRaw('DAYOFWEEK(started_at)-1 AS day_of_week, SUM(session_length)/60 AS total_hours')
+    public function hoursByDay($labels)
+    {
+        $startOfWeek = Carbon::now()->startOfWeek();
+        $endOfWeek = Carbon::now()->endOfWeek();
+        $hoursByDay = $this->focusSessions()
+            ->selectRaw('date(started_at) AS day_of_week, SUM(session_length)/60 AS total_hours')
             ->whereNotNull('completed_at') // Only consider completed sessions
             ->groupBy('day_of_week')
+            ->whereBetween('started_at', [$startOfWeek, $endOfWeek])
             ->orderBy('day_of_week')
-            ->get()
-            ->toArray();
+            ->get();
+        $results = [];
+        foreach ($hoursByDay as $hours) {
+            $result = [];
+            $day = Carbon::createFromFormat('Y-m-d', $hours->day_of_week);
+            $result['day_of_week'] = $day->englishDayOfWeek;
+            $result['total_hours'] = $hours->total_hours;
+            $results[] = $result;
+        }
 
+        $chartData = [];
+        $resultsByDay = collect($results);
+        foreach ($labels as $label) {
+            //Find the total for label
+            $totalForThisDay = $resultsByDay->where('day_of_week', $label)->first();
+            $chartData[] = $totalForThisDay ? $totalForThisDay['total_hours']  : 0;
+        }
+
+        return $chartData;
     }
-
 }

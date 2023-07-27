@@ -18,7 +18,12 @@ class progress extends Component
         $user = Auth::user();
         if ($user) {
                     # code...
-                    $this->progress = $user->dailyProgress();
+                    if ($user->dailyProgress() <= 100){
+                      $this->progress = round($user->dailyProgress());
+                    }else {
+                        $this->progress = 100;
+                    }
+
                     $this->dailyGoal = $user->settings->daily_goal;
         }
     }

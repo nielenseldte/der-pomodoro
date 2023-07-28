@@ -50,7 +50,7 @@
                         class="block w-full px-4 py-2 mt-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-500 dark:focus:ring-lime-400 rounded-md shadow-sm"
                         wire:model="settings.long_break_length">
 
-                     @if ($errors->has('settings.long_break_length'))
+                    @if ($errors->has('settings.long_break_length'))
                         <div class="rounded-lg border-2 border-red-600 bg-red-300 p-2">
                             <span
                                 class="error text-red-600 font-semibold">{{ $errors->first('settings.long_break_length') }}</span>
@@ -66,7 +66,7 @@
                         class="block w-full px-4 py-2 mt-2 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 focus:border-lime-400 dark:focus:border-lime-400 focus:ring-lime-500 dark:focus:ring-lime-400 rounded-md shadow-sm"
                         wire:model="settings.long_break_interval">
 
-                   @if ($errors->has('settings.long_break_interval'))
+                    @if ($errors->has('settings.long_break_interval'))
                         <div class="rounded-lg border-2 border-red-600 bg-red-300 p-2">
                             <span
                                 class="error text-red-600 font-semibold">{{ $errors->first('settings.long_break_interval') }}</span>
@@ -91,8 +91,10 @@
 
 
                 <div class="flex justify-end mt-6 space-x-4">
-                    <x-button  type="submit">{{ __('Save') }}</x-button>
-                    <x-button wire:click="resetToDefault" class="px-6 py-2 ml-2">{{ __('Reset to Defaults') }}</x-button>
+                    <x-button type="submit">{{ __('Save') }}</x-button>
+                    <x-button wire:click="resetToDefault" class="px-6 py-2 ml-2">{{ __('Reset to Defaults') }}
+                    </x-button>
+
                 </div>
         </form>
     </section>

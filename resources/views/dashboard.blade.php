@@ -13,7 +13,7 @@
           <h1 class="text-2xl underline italic">{{ __('Start Now') }}</h1>
         </div>
         <div class="py-8 flex flex-col justify-center items-center">
-          @livewire('timer-component') <br>
+          <livewire:timer-component/> <br>
 
           <button type="button" class="btn outline-double dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">
             <a href="/timer">{{ __('Go To Timer') }}</a>

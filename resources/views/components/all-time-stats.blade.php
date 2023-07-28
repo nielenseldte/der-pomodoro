@@ -7,7 +7,7 @@
     </div>
     <div class="text-center">
 
-        <x-danger-button>{{ __('RESET STATS') }}</x-danger-button>
+    <livewire:reset-stats />
 
     </div>
 </div>

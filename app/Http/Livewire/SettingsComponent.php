@@ -11,6 +11,7 @@ class SettingsComponent extends Component
 {
     //public $message = 'boo';
     public Settings $settings;
+    public $reset_clicked = false;
 
 
     public $rules = [
@@ -45,12 +46,14 @@ class SettingsComponent extends Component
         ];
     }
 
+
     public function resetToDefault() {
         $this->settings->session_length = 25;
         $this->settings->short_break_length = 5;
         $this->settings->long_break_length = 10;
         $this->settings->long_break_interval = 4;
         $this->settings->daily_goal = 2;
+       
     }
 
     public function save()

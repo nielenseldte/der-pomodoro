@@ -149,7 +149,7 @@ class User extends Authenticatable
     {
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->count();
         $startedSessions = $this->focusSessions()->count();
-        $hoursFocused = $this->focusSessions()->whereNotNull('session_length')->sum('session_length');
+        $hoursFocused = round($this->focusSessions()->whereNotNull('session_length')->where('current_status', 'ended')->sum('session_length')/60,2);
         $cancelledSessions = $this->focusSessions()->where('current_status', 'canceled')->count();
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->count();
         $totalSessions = $cancelledSessions + $completedSessions;
@@ -176,7 +176,7 @@ class User extends Authenticatable
 
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $startedSessions = $this->focusSessions()->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
-        $hoursFocused = $this->focusSessions()->whereNotNull('session_length')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->sum('session_length');
+        $hoursFocused = round($this->focusSessions()->whereNotNull('session_length')->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->sum('session_length')/60,2);
         $cancelledSessions = $this->focusSessions()->where('current_status', 'canceled')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $totalSessions = $cancelledSessions + $completedSessions;

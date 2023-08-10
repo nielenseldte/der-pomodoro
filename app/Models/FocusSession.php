@@ -24,7 +24,8 @@ class FocusSession extends Model
         'completed_at' => 'datetime'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -34,7 +35,8 @@ class FocusSession extends Model
      *
      * @return FocusSession|null
      */
-    public static function start(User $user = null) {
+    public static function start(User $user = null)
+    {
         //Get logged in user
         if (!$user) {
             $user = Auth::user();
@@ -48,8 +50,7 @@ class FocusSession extends Model
             $user->load('settings');
         }
 
-        //TODO: Deal with complexity of calling start when another session is underway....
-        //$user->endBreak();
+
 
         $newFocusSession = new FocusSession();
         $newFocusSession->user_id = $user->id;
@@ -60,10 +61,10 @@ class FocusSession extends Model
         $newFocusSession->session_length = $user->settings->session_length;
         $newFocusSession->save();
         return $newFocusSession;
-
     }
 
-    public function end() {
+    public function end()
+    {
         if ($this->current_status !== static::STATUS_ENDED) {
             $this->completed_at = now();
             $this->current_status = static::STATUS_ENDED;
@@ -71,7 +72,6 @@ class FocusSession extends Model
             $this->user->startBreak();
         }
         return $this;
-
     }
 
     public function pause()
@@ -82,8 +82,6 @@ class FocusSession extends Model
             $this->save();
         }
         return $this;
-
-
     }
 
     public function resume()
@@ -97,12 +95,11 @@ class FocusSession extends Model
             $this->save();
         }
         return $this;
-
     }
 
     public function cancel()
     {
-        if ($this->current_status !== static::STATUS_CANCELED and $this->current_status !== static::STATUS_ENDED ) {
+        if ($this->current_status !== static::STATUS_CANCELED and $this->current_status !== static::STATUS_ENDED) {
             $this->progressed_at = now();
             $this->current_status = static::STATUS_CANCELED;
             $this->save();
@@ -111,7 +108,6 @@ class FocusSession extends Model
         }
 
         return $this;
-
     }
 
     public function tick()
@@ -176,7 +172,8 @@ class FocusSession extends Model
 
 
 
-    public function toggle() {
+    public function toggle()
+    {
 
         if ($this->current_status == FocusSession::STATUS_TICKING) {
             $this->pause();
@@ -187,23 +184,19 @@ class FocusSession extends Model
             $this->resume();
             return $this;
         }
-
     }
 
-    public function buttonLabel() {
+    public function buttonLabel()
+    {
         if ($this->current_status == FocusSession::STATUS_TICKING) {
             return __('Stop');
         }
-        if ($this->current_status == FocusSession::STATUS_PAUSED)   {
+        if ($this->current_status == FocusSession::STATUS_PAUSED) {
             return __('Start');
         }
         if ($this->current_status == FocusSession::STATUS_CANCELED) {
             return __('Start');
         }
         return __('Start');
-
-
-
     }
-
 }

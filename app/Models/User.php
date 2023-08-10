@@ -132,22 +132,32 @@ class User extends Authenticatable
         $endOfWeek = Carbon::now()->endOfWeek();
 
 
+
         $cancelledSessions = $this->focusSessions()->where('current_status', 'canceled')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $totalSessions = $cancelledSessions + $completedSessions;
-        $productivity = round(($completedSessions / $totalSessions) * 100, 2);
-        return $productivity;
+        if ($totalSessions > 0) {
+            $productivity = round(($completedSessions / $totalSessions) * 100, 2);
+            return $productivity;
+        } else {
+            $productivity = 0;
+            return $productivity;
+        }
     }
 
-    public function allTimeStats() {
+    public function allTimeStats()
+    {
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->count();
         $startedSessions = $this->focusSessions()->count();
         $hoursFocused = $this->focusSessions()->whereNotNull('session_length')->sum('session_length');
         $cancelledSessions = $this->focusSessions()->where('current_status', 'canceled')->count();
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->count();
         $totalSessions = $cancelledSessions + $completedSessions;
-        $productivityScore = round(($completedSessions / $totalSessions) * 100, 2);
-
+        if ($totalSessions > 0) {
+            $productivityScore = round(($completedSessions / $totalSessions) * 100, 2);
+        }else {
+            $productivityScore = 0;
+        }
         $allTimeStats = [
             'sessions_completed' => $completedSessions,
             'sessions_started' => $startedSessions,
@@ -156,23 +166,25 @@ class User extends Authenticatable
         ];
 
         return $allTimeStats;
-
-
     }
 
-    public function weeklyStats() {
+    public function weeklyStats()
+    {
 
         $startOfWeek = Carbon::now()->startOfWeek();
         $endOfWeek = Carbon::now()->endOfWeek();
 
-        $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek,$endOfWeek])->count();
+        $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $startedSessions = $this->focusSessions()->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $hoursFocused = $this->focusSessions()->whereNotNull('session_length')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->sum('session_length');
         $cancelledSessions = $this->focusSessions()->where('current_status', 'canceled')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $completedSessions = $this->focusSessions()->where('current_status', 'ended')->whereBetween('started_at', [$startOfWeek, $endOfWeek])->count();
         $totalSessions = $cancelledSessions + $completedSessions;
-        $productivityScore = round(($completedSessions / $totalSessions) * 100, 2);
-
+        if ($totalSessions > 0) {
+            $productivityScore = round(($completedSessions / $totalSessions) * 100, 2);
+        }else {
+            $productivityScore = 0;
+        }
         $weeklyStats = [
             'sessions_completed' => $completedSessions,
             'sessions_started' => $startedSessions,
@@ -181,12 +193,10 @@ class User extends Authenticatable
         ];
 
         return $weeklyStats;
-
-
-
     }
 
-    public function resetAll() {
+    public function resetAll()
+    {
         $this->focusSessions()->delete();
         $this->breaks()->delete();
     }

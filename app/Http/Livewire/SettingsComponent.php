@@ -9,11 +9,18 @@ use Illuminate\Support\Str;
 
 class SettingsComponent extends Component
 {
-    //public $message = 'boo';
+
+    /**
+     *
+     * @var Settings
+     */
     public Settings $settings;
-    public $reset_clicked = false;
 
 
+    /**
+     * Set my verification rules for the input of user settings
+     * @var array
+     */
     public $rules = [
             'settings.session_length' => 'required|numeric|min:15|max:50',
             'settings.short_break_length' => 'required|numeric|min:3|max:15',
@@ -22,6 +29,10 @@ class SettingsComponent extends Component
             'settings.daily_goal' => 'required|numeric|min:1|max:18',
     ];
 
+    /**
+     * Mount checks if the user is authenticateed and then if it is, sets the settings to the users settings from the database
+     * @return void
+     */
     public function mount()
     {
         $user = Auth::user();
@@ -29,6 +40,10 @@ class SettingsComponent extends Component
 
         $this->settings = $user->settings;
     }
+    /**
+     * Defining my custom error messages that wiill display if rules are violated
+     * @return array<string>
+     */
     public function messages()
     {
         return [
@@ -47,19 +62,26 @@ class SettingsComponent extends Component
     }
 
 
+    /**
+     * Reset settings to their default values
+     * @return void
+     */
     public function resetToDefault() {
         $this->settings->session_length = 25;
         $this->settings->short_break_length = 5;
-        $this->settings->long_break_length = 10;
+        $this->settings->long_break_length = 15;
         $this->settings->long_break_interval = 4;
         $this->settings->daily_goal = 2;
-       
+
     }
 
+    /**
+     * function saves validated settings after modification
+     * @return void
+     */
     public function save()
     {
-        // Validate the component properties
-        $this->validate();
+        $this->validate(); //validated against my defined rules
 
         $this->settings->save();
 
@@ -69,6 +91,10 @@ class SettingsComponent extends Component
 
 
 
+    /**
+     * Render the livewire settings component
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
     public function render()
     {
         return view('livewire.settings-component');

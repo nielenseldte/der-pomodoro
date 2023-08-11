@@ -33,7 +33,6 @@ class dailyHoursChart extends Component
         }
 
         $this->settings = $this->makeChartSettings($user);
-
     }
 
 
@@ -42,10 +41,10 @@ class dailyHoursChart extends Component
         $settings = [];
         $dataSets = [];
         $defaultConfigJson = '{"type":"bar","data":{"labels":[],"datasets":[{"label":"Number of Hours per day","data":[],"backgroundColor":"lime","borderWidth":1}]},"options":{"plugins":{"legend":{"display":true,"labels":{"font":{"size":14,"weight":"bold"},"color":"black"}}},"scales":{"y":{"beginAtZero":true,"grid":{"display":false},"ticks":{"color":"lime","font":{"weight":"bold"}}},"x":{"grid":{"display":false},"ticks":{"color":"lime","font":{"weight":"bold"}}}}}}';
-        $settings = json_decode($defaultConfigJson,true);
+        $settings = json_decode($defaultConfigJson, true);
 
         //Set X axis
-        Arr::set($settings,'data.labels',$this->daysOfTheWeek);
+        Arr::set($settings, 'data.labels', $this->daysOfTheWeek);
 
         //Set data
         Arr::set($settings, 'data.datasets.0.data', $this->hoursByDay);
@@ -53,7 +52,6 @@ class dailyHoursChart extends Component
 
 
         return $settings;
-
     }
 
     /**

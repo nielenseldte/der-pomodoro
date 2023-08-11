@@ -11,8 +11,13 @@ class ProductivityScore extends Component
 {
 
     public $productivityScore;
+
     /**
-     * Create a new component instance.
+     * Construct/create an instance of the productivity score component/class
+     *
+     * if a user is authenticated
+     * the productivity score is calculated by the User model's productivityScore() method
+     * @return void
      */
     public function __construct()
     {
@@ -21,12 +26,12 @@ class ProductivityScore extends Component
         if ($user) {
 
             $this->productivityScore = $user->ProductivityScore();
-
         }
+        return;
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * renders the productivityscore component
      */
     public function render(): View|Closure|string
     {

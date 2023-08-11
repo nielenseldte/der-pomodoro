@@ -156,8 +156,12 @@ class User extends Authenticatable
 
         $dailyGoal = $this->settings->daily_goal;
         $hoursCompleted = ($this->focusSessions()->whereDate('completed_at', Carbon::today())->sum('session_length')) / 60;
-        $progress = ($hoursCompleted / $dailyGoal) * 100;
-        return $progress;
+        $progress = round(($hoursCompleted / $dailyGoal) * 100);
+        if ($progress <= 100) {
+            return $progress;
+        }else {
+            return 100;
+        }
     }
 
     /**

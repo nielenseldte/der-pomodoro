@@ -9,17 +9,23 @@ use Illuminate\Support\Facades\Auth;
 
 class WeeklyOverview extends Component
 {
+    //variables to which to assign the values from the weeklyStats() fucntion array in the User model
     public $sessionsStarted;
     public $sessionsFinished;
     public $hoursFocused;
     public $weeklyStats;
     public $productivityScore;
+
+
     /**
-     * Create a new component instance.
+     * Constructs an instance of the weeklyoverview component/class
+     *
+     * authenticates the user and then
+     * fills the variable values with the corresponding values in the array returned by weeklyStats() method
+     * @return void
      */
     public function __construct()
     {
-        //
         $user = Auth::user();
         if ($user) {
             $this->weeklyStats = $user->weeklyStats();
@@ -32,7 +38,8 @@ class WeeklyOverview extends Component
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Renders the weeklyoverview component
+     * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render(): View|Closure|string
     {

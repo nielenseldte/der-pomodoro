@@ -9,14 +9,21 @@ use Illuminate\Support\Facades\Auth;
 
 class AllTimeStats extends Component
 {
+    //variables to which to assign the values from the allTimeStats() fucntion array in the User model
+
     public $sessionsStarted;
     public $sessionsFinished;
     public $hoursFocused;
     public $allTimeStats;
     public $productivityScore;
 
+
     /**
-     * Create a new component instance.
+     * We construct/create an instance of the allTimeStats class/component
+     *
+     * if a user is authenticated
+     * values are assigned from the allTimeStats array that is passed from the allTimeStats() methods on user model
+     * @return void
      */
     public function __construct()
     {
@@ -28,13 +35,13 @@ class AllTimeStats extends Component
             $this->sessionsFinished = $this->allTimeStats['sessions_completed'];
             $this->hoursFocused = $this->allTimeStats['hours_focused'];
             $this->productivityScore = $this->allTimeStats['productivity_score'];
-
         }
         return;
     }
 
     /**
-     * Get the view / contents that represent the component.
+     * Render the alltimestats component
+     * @return \Illuminate\Contracts\View\View|\Closure|string
      */
     public function render(): View|Closure|string
     {

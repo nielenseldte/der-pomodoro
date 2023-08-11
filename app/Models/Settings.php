@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * Settings class allow to store settings for each user and make the user experience unique
+ */
 class Settings extends Model
 {
     use HasFactory;
@@ -18,13 +21,31 @@ class Settings extends Model
         'long_break_interval',
         'daily_goal',
     ];
-
-    public function user() {
+    /**
+     * This settings belongs to a user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
         $this->belongsTo(User::class);
-
     }
 
-    public static function createSettings(User $user = null) {
+
+    /**
+     * Static method for creating user settings ensuring no user has no settings.
+     *
+     *
+     * @param \App\Models\User|null $user the user for which to create the settings
+     * @return Settings|null The created settings instance or null if no user was passed. Default values are as follows
+     *                                  - focus session length is 25 minutes
+     *                                  - Short break length is 5 minutes
+     *                                  - Long break length is 15 minutes
+     *                                  - long break interval is 4 focuss sessions
+     *                                  - daily goal is 2 hours
+     */
+    public static function createSettings(User $user = null)
+    {
         if (!$user) {
             $user = Auth::user();
         }
@@ -40,11 +61,5 @@ class Settings extends Model
         $newSetting->daily_goal = 2;
         $newSetting->save();
         return $newSetting;
-
-
-    }
-
-    public function updateSettings() {
-
     }
 }

@@ -21,6 +21,18 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function (User $user) {
+            Settings::createSettings($user);
+        });
+
+    }
+
+
     /**
      *
      *

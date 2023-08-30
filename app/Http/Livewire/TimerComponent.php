@@ -49,7 +49,8 @@ class TimerComponent extends Component
 
         $currentFocusSession = $user->getCurrentFocusSession();
         if (!$currentFocusSession) {
-            $this->ticker = $user->settings->session_length . ':00';
+
+            $this->ticker = $user->settings ? $user->settings->session_length . ':00' : '25:00';
             return;
         }
         if ($currentFocusSession->current_status == FocusSession::STATUS_ENDED) {

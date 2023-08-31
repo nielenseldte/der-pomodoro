@@ -21,7 +21,11 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-
+    /**
+     * Boot method ensures we immediately assign settings to a user when a user is authorised/created
+     * This prevents errors from occuring with accessing data that does not exist (as user settings does not exist until I create a focus session, which was a mistake from my side, this rectifies the mistake)
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();

@@ -17,7 +17,7 @@
       <h1 class="my-3 text-4xl font-bold">Welcome to Der Pomodoro</h1>
       <p class="text-sm dark:text-gray-400">How would you like to proceed?</p>
       <br>
-      <button type="button" class="btn outline dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">
+      <button type="button" class="btn mb-4 md:mb-0 outline dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">
         <a href="/login">Login</a>
       </button>
       <button type="button" class="btn outline dark:bg-lime-400 dark:text-gray-800 hover:bg-gray-800 hover:text-lime-400 hover:outline-double">

@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class progress extends Component
+class Progress extends Component
 {
 
 //default values are set to variables to be worked with

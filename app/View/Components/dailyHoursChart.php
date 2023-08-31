@@ -9,7 +9,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
-class dailyHoursChart extends Component
+class DailyHoursChart extends Component
 {
 
     public $daysOfTheWeek;

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->dateTime('started_at');
             $table->string('current_status', 10)->index();
-            $table->dateTime('progressed_at');
-            $table->dateTime('completed_at');
+            $table->dateTime('progressed_at')->nullable();
+            $table->dateTime('completed_at')->nullable();
             $table->integer('pomodoro_count');
 
         });

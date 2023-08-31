@@ -39,6 +39,10 @@ Contributions to `der-pomodoro` are welcome! If you have an idea for a new featu
 
 If you want to contribute code, please fork the repository and submit a pull request with your changes.
 
+##Test Cases and Test Data
+
+here
+
 ## License
 
 `der-pomodoro` is licensed under the MIT License.

@@ -9,8 +9,8 @@
 
 Before installing `der-pomodoro`, make sure you have the following software installed on your machine:
 
-- PHP
-- Composer
+- PHP (8.2). More info: https://www.php.net/downloads.php
+- Composer. More info https://getcomposer.org/
 
 ## Installation
 
@@ -21,11 +21,10 @@ To install `der-pomodoro` locally, follow these steps:
 3. Install the dependencies: `composer install`
 4. Set up the database:
     1. Copy the `.env.example` file and save it as `.env` in the root directory of the project.
-    2. Open the `.env` file and change the `DB_CONNECTION` value to `sqlite` if you do not have MySQL installed. If you are using MySQL, make sure to provide the correct database credentials in the `.env` file.
-    3. Run the database migrations: `php artisan migrate:fresh`
-5. Start the application: `php -S localhost:8000`
+    2. Run the database migrations: `php artisan migrate:fresh`
+5. Start the application: `php artisan serve --port=80`  *Note: you may select a different port if required
 
-After completing these steps, the application should be running locally on your machine at `http://localhost:8000`.
+After completing these steps, the application should be running locally on your machine at `http://localhost`.
 
 ## Usage
 

@@ -28,7 +28,7 @@ After completing these steps, the application should be running locally on your 
 
 ## Usage
 
-To use `der-pomodoro`, simply open `http://localhost:8000` in your web browser and follow the on-screen instructions to set up your Pomodoro timer. You can customize the length of your work and break sessions, as well as the number of sessions you want to complete.
+To use `der-pomodoro`, simply open `http://localhost:80` in your web browser and follow the on-screen instructions to set up your Pomodoro timer. You can customize the length of your work and break sessions, as well as the number of sessions you want to complete.
 
 Once you start the timer, the application will keep track of your progress and notify you when it's time to take a break or start a new work session.
 
@@ -87,6 +87,9 @@ TEST CASE 2 (Only to be performed after test case 1):
 9. Now navigate to the 'My Settings' screen again through the dropdown on the top right, and click on the 'Reset to Defaults' button.
 10. Return to the 'Timer' Screen and see your timer display 25:00 minutes instead of 15:00.
 11. Test case Complete
+
+## Note (if needed my deployed version can be accessed:
+ at https://der-pomodoro.work/
 
 ## License
 

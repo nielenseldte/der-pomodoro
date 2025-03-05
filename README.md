@@ -88,8 +88,6 @@ TEST CASE 2 (Only to be performed after test case 1):
 10. Return to the 'Timer' Screen and see your timer display 25:00 minutes instead of 15:00.
 11. Test case Complete
 
-## Note (if needed my deployed version can be accessed):
- at https://der-pomodoro.work/
 
 ## License
 
